@@ -17,7 +17,7 @@ class Program
         var (probabilities, q, keys) = Bst.Process(list, totalSum);
         var (e,root) = Bst.OptimalBst(probabilities, q, keys.Count-1);
         Node treeRoot = Bst.BuildTree(root, keys);
-        treeRoot.PocetPorovnani("day");
+        treeRoot.PocetPorovnani(Console.ReadLine() ?? string.Empty);
         List<List<string>> keysByLevel = treeRoot.GetKeysByLevel();
         for (int i = 0; i < keysByLevel.Count; i++)
         {
