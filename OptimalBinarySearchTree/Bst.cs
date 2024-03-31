@@ -91,6 +91,6 @@ public class Bst
         }
         
         // Start the recursive tree building with the full range of keys
-        return BuildSubTree(1, keyWords.Count - 1); // Adjust indices as needed
+        return BuildSubTree(1, keyWords.Count - 1);
     }
 }
