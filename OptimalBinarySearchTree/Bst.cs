@@ -20,8 +20,8 @@ public class Bst
             if (occurrences > MinimumOccurrences)
             {
                 filteredKeys.Add(key); 
-                probabilities.Add((double)occurrences / totalSum);
-                q.Add(sumP / (double)totalSum);
+                probabilities.Add((double)occurrences / (double)totalSum);
+                q.Add((double)sumP / (double)totalSum);
                 sumP = 0;
             }
             else
@@ -30,7 +30,7 @@ public class Bst
             }
         }
         if (sumP > 0)
-            q.Add((double)sumP / totalSum);
+            q.Add((double)sumP / (double)totalSum);
         
         return (probabilities.ToArray(), q.ToArray(), filteredKeys);
     }

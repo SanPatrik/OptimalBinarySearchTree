@@ -16,11 +16,11 @@ public class Parser
             string[] parts = line.Split(new char[] { ' ' }, 2);
             if (parts.Length == 2 && int.TryParse(parts[0], out int number))
             {
-                list.Add(Tuple.Create(number, parts[1]));
+                list.Add(Tuple.Create(number, parts[1].Trim()));
                 totalSum += number;
             }
         }
-        list.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+        list.Sort((a, b) => String.Compare(a.Item2, b.Item2, StringComparison.Ordinal));
 
         return (list, totalSum);
     }
