@@ -6,8 +6,8 @@ public class Bst
     
     public static (double[] probabilities, double[] q, List<string> filteredKeys) Process(List<Tuple<int, string>> list, int totalSum)
     {
-        List<string> filteredKeys = new List<string>(){ null };
-        List<double> probabilities = new List<double>(){ 0 };
+        List<string> filteredKeys = new List<string>(){ null }; // Insert a dummy key at the beginning
+        List<double> probabilities = new List<double>(){ 0 }; // Insert a dummy probability at the beginning
         List<double> q = new List<double>();
         
         int sumP = 0;
@@ -17,6 +17,7 @@ public class Bst
             int occurrences = entry.Item1;
             string key = entry.Item2;
 
+            // Filter out keys with less than MinimumOccurrences
             if (occurrences > MinimumOccurrences)
             {
                 filteredKeys.Add(key); 
@@ -24,17 +25,20 @@ public class Bst
                 q.Add((double)sumP / (double)totalSum);
                 sumP = 0;
             }
+            // Add the occurrences to the sum
             else
             {
                 sumP += occurrences;
             }
         }
+        // Add the last q value
         if (sumP > 0)
             q.Add((double)sumP / (double)totalSum);
         
         return (probabilities.ToArray(), q.ToArray(), filteredKeys);
     }
     
+    // Function to calculate the optimal binary search tree from pseudo code from the book
     public static (double[,] e, int[,] root) OptimalBst(double[] p, double[] q, int n)
     {
         double[,] e = new double[n + 2, n + 1];
@@ -46,7 +50,7 @@ public class Bst
             e[i, i - 1] = q[i - 1];
             w[i, i - 1] = q[i - 1];
         }
-
+        
         for (int l = 1; l <= n; l++)
         {
             for (int i = 1; i <= n - l + 1; i++)
@@ -66,6 +70,7 @@ public class Bst
                 }
             }
         }
+        // Cost of the optimal BST is stored in e[1, n]
         Console.WriteLine($"The cost of the optimal BST is: {e[1, n]}");
         return (e, root);
     }

@@ -20,6 +20,7 @@ public class Parser
                 totalSum += number;
             }
         }
+        // Sort the list by the keys on binary values if not there is difference in tree and cost (aprox. 0.011)
         list.Sort((a, b) => String.Compare(a.Item2, b.Item2, StringComparison.Ordinal));
 
         return (list, totalSum);
