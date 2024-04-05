@@ -38,28 +38,28 @@ public class Bst
         return (probabilities.ToArray(), q.ToArray(), filteredKeys);
     }
     
-    // Function to calculate the optimal binary search tree from pseudo code from the book
+    // Function to calculate the optimal binary search tree from pseudo code from the book, O(n^3)
     public static (double[,] e, int[,] root) OptimalBst(double[] p, double[] q, int n)
     {
         double[,] e = new double[n + 2, n + 1];
         double[,] w = new double[n + 2, n + 1];
-        int[,] root = new int[n + 1, n + 1];
+        int[,] root = new int[n + 1, n + 1]; // root[i, j] stores the index of the root of the optimal BST for keys i to j
 
-        for (int i = 1; i <= n + 1; i++)
+        for (int i = 1; i <= n + 1; i++) // initialize the diagonal of the matrix
         {
             e[i, i - 1] = q[i - 1];
             w[i, i - 1] = q[i - 1];
         }
         
-        for (int l = 1; l <= n; l++)
+        for (int l = 1; l <= n; l++) // define length of the subtree
         {
-            for (int i = 1; i <= n - l + 1; i++)
+            for (int i = 1; i <= n - l + 1; i++) // define start index of the subtree
             {
-                int j = i + l - 1;
+                int j = i + l - 1; // last index of the subtree
                 e[i, j] = double.MaxValue;
                 w[i, j] = w[i, j - 1] + p[j] + q[j];
 
-                for (int r = i; r <= j; r++)
+                for (int r = i; r <= j; r++) // searching best root for the subtree
                 {
                     double t = e[i, r - 1] + e[r + 1, j] + w[i, j];
                     if (t < e[i, j])
@@ -71,7 +71,7 @@ public class Bst
             }
         }
         // Cost of the optimal BST is stored in e[1, n]
-        Console.WriteLine($"The cost of the optimal BST is: {e[1, n]}");
+        Console.WriteLine($"The cost of the optimal BST is: {e[1, n]}"); // cost is the highest combination from first to last index
         return (e, root);
     }
     
